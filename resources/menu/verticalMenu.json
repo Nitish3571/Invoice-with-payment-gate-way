@@ -1,0 +1,76 @@
+{
+  "menu": [
+    {
+      "url": "/",
+      "name": "Dashboards",
+      "icon": "menu-icon tf-icons bx bx-home-circle",
+      "slug": "dashboard-analytics"
+    },
+    {
+      "menuHeader": "Apps & Pages"
+    },
+    {
+      "name": "Account Settings",
+      "icon": "menu-icon tf-icons bx bx bx-dock-top",
+      "slug": "pages-account-settings",
+      "submenu": [
+        {
+          "url": "account-settings-account",
+          "name": "Account",
+          "slug": "account-settings-account"
+        },
+        {
+          "url": "account-settings-notifications",
+          "name": "Notifications",
+          "slug": "account-settings-notifications"
+        }
+      ]
+    },
+    {
+      "name": "Authentications",
+      "icon": "menu-icon tf-icons bx bx-lock-open-alt",
+      "slug": "auth",
+      "submenu": [
+        {
+          "url": "auth/reset",
+          "name": "Forgot Password",
+          "slug": "auth-forgot-password"
+        }
+      ]
+    },
+    {
+      "name": "Invoice",
+      "icon": "menu-icon tf-icons bx bx-cube-alt",
+      "slug": "invoice",
+      "submenu": [
+        {
+          "url": "invoice/create",
+          "name": "Create",
+          "slug": "invoice-create"
+        },
+        {
+          "url": "invoice/list",
+          "name": "List",
+          "slug": "invoice-list"
+        }
+      ]
+    },
+    {
+      "menuHeader": "Misc"
+    },
+    {
+      "url": "https://nitish.iblogger.org",
+      "icon": "menu-icon tf-icons bx bx-support",
+      "name": "Support",
+      "slug": "support",
+      "target": "_blank"
+    },
+    {
+      "url": "https://nitish.iblogger.org",
+      "icon": "menu-icon tf-icons bx bx-file",
+      "name": "Documentation",
+      "slug": "documentation",
+      "target": "_blank"
+    }
+  ]
+}

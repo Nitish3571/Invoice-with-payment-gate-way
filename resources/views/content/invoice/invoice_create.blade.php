@@ -158,5 +158,107 @@
     </div>
   </div>
 
+  <script>
+   function addItemRow() {
+    // Get the table body element where rows will be added
+    var table = document.getElementById('itemRows');
+
+    // Create a new row
+    var row = table.insertRow();
+
+    // Create cells for each input field
+    var itemCell = row.insertCell(0);
+    var quantityCell = row.insertCell(1);
+    var unitRateCell = row.insertCell(2);
+    var cgstCell = row.insertCell(3);
+    var sgstCell = row.insertCell(4);
+    var igstCell = row.insertCell(5);
+    var amountCell = row.insertCell(6);
+
+    // Set the inner HTML for each cell with input fields
+    itemCell.innerHTML = `
+        <input type="text" name="items[]" placeholder="Item" class="form-control" required />
+        <textarea class="form-control" placeholder="Description" name="description[]" onchange="calculateRowAmount(this)"></textarea>
+    `;
+    quantityCell.innerHTML = `
+        <input type="number" name="quantities[]" class="form-control" min="1" value="1" onchange="updateAmount(this)" required />
+    `;
+    unitRateCell.innerHTML = `
+        <input type="number" name="unit_rates[]" class="form-control" min="0" value="0" onchange="updateAmount(this)" required />
+    `;
+    cgstCell.innerHTML = `
+        <input type="number" name="cgst[]" class="form-control" min="0" value="0" onchange="updateAmount(this)" required />
+    `;
+    sgstCell.innerHTML = `
+        <input type="number" name="sgst[]" class="form-control" min="0" value="0" onchange="updateAmount(this)" required />
+    `;
+    igstCell.innerHTML = `
+        <input type="number" name="igst[]" class="form-control" min="0" value="0" onchange="updateAmount(this)" required />
+    `;
+    amountCell.innerHTML = `
+        <input type="number" name="amounts[]" class="form-control" min="0" value="0" readonly />
+    `;
+
+    // Recalculate totals whenever a new row is added
+    calculateTotalAmount();
+}
+
+    // Function to update the amount based on quantity and unit rate
+    function updateAmount(element) {
+    var row = element.parentElement.parentElement;
+    var quantity = parseFloat(row.querySelector('input[name="quantities[]"]').value) || 0;
+    var unitRate = parseFloat(row.querySelector('input[name="unit_rates[]"]').value) || 0;
+    var cgst = parseFloat(row.querySelector('input[name="cgst[]"]').value) || 0;
+    var sgst = parseFloat(row.querySelector('input[name="sgst[]"]').value) || 0;
+    var igst = parseFloat(row.querySelector('input[name="igst[]"]').value) || 0;
+
+    // Calculate total amount for the row
+    var amount = quantity * unitRate;
+    var totalAmt = amount;
+
+    if (cgst > 0) {
+      totalAmt += (amount * cgst / 100);
+    }
+
+    if (sgst > 0) {
+      totalAmt += (amount * sgst / 100);
+    }
+
+    if (igst > 0) {
+      totalAmt += (amount * igst / 100);
+    }
+
+    row.querySelector('input[name="amounts[]"]').value = totalAmt.toFixed(2);
+
+    // Recalculate total amounts
+    calculateTotalAmount();
+}
+
+
+    // Function to calculate the total amount, discount, and net amount
+    function calculateTotalAmount() {
+    var subTotal = 0;
+    var discountPercent = parseFloat(document.getElementById('discountInput').value) || 0;
+    var discountValue = 0;
+
+    // Calculate subtotal by summing all amount values
+    var amounts = document.querySelectorAll('input[name="amounts[]"]');
+    amounts.forEach(function(amount) {
+        subTotal += parseFloat(amount.value) || 0;
+    });
+
+    // Calculate discount value
+    discountValue = subTotal * (discountPercent / 100);
+
+    // Calculate net amount after discount
+    var netAmount = subTotal - discountValue;
+
+    // Update the input fields
+    document.getElementById('subTotal').value = subTotal.toFixed(2);
+    document.getElementById('discount').value = discountValue.toFixed(2);
+    document.getElementById('netAmount').value = netAmount.toFixed(2);
+}
+
+    </script>
 
 @endsection

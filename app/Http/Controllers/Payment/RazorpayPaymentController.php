@@ -30,7 +30,7 @@ class RazorpayPaymentController extends Controller
         $input = $request->all();
 
         // $api = new Api({{env("ROZO_API_KEY")}}, {{env("ROZO_SECRET_KEY")}});
-        $api = new Api("rzp_test_KPvuflmxXQPkmk", "VBosmsMvKGboKGeodlwZfBcd");
+        $api = new Api("rzp_test_KPvuflmxXQPkmkss", "VBosmsMvKGboKGeodlwZfBcddd");
 
 
         $payment = $api->payment->fetch($input['razorpay_payment_id']);
